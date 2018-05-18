@@ -1,0 +1,39 @@
+{
+  "name": "wc-context",
+  "version": "1.0.0",
+  "description": "Context utils for webcomponents",
+  "main": "createContext.js",
+  "module": "createContext.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/askbeka/wc-context.git"
+  },
+  "keywords": [
+    "wc",
+    "wc-context",
+    "webcomponents",
+    "polymer",
+    "lit-html",
+    "lit-element",
+    "LitElement",
+    "context",
+    "provider",
+    "consumer",
+    "dependecy injection"
+  ],
+  "author": "beknaraskarov@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/askbeka/wc-context/issues"
+  },
+  "homepage": "https://github.com/askbeka/wc-context#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "redux": "^4.0.0"
+  }
+}
