@@ -27,8 +27,10 @@ class BaseProvider extends HTMLElement {
   }
 
   subscribe(callback) {
-    if (includes(this.__listeners)) {
+    if (!includes(this.__listeners, callback)) {
       this.__listeners.push(callback);
+    } else {
+      throw new Error(`consumer ${callback} already subscribed`, this);
     }
 
     callback(this.value);
