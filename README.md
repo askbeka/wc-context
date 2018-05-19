@@ -6,6 +6,11 @@ Context creation library for `webcomponents` inspired by `React's context` (new 
 
 In component based apps, you may want to pass properties all the way down the hirarchy or decouple components from their dependencies for testability or reusability purposes, then this small library can help you.
 
+## Concept
+`provider`, is an element providing a context through value property to subscribed `consumers`.
+`consumers` when connected to DOM subscribe to context through dispatching `CustomEvent` which then gets handled by closest `provider` up in the tree.
+`providers` have to be static, connected only once. For dynamic context `value` has to be used. This is needed for performance and to save users of API from future mental overhead by restricting usage options.
+
 ## See Redux example in demo folder
 ```
 npm i polymer-cli -g
@@ -19,20 +24,31 @@ polymer serve
 ```javascript
 import createContext from 'wc-context';
 
-// will create <theme-provider> Element with default value property orange
+// will create <acontext-provider> Element with default value property 'defaultContext'
 // can be modified later
 // and return consumer mixin for custom element class
-const consumer = createContext('theme', 'orange');
+const consumer = createContext('acontext', 'defaultValue');
 
 const template = `
-  <theme-provider>
-    <theme-consumer></theme-consumer>
-  </theme-provider>
+  <acontext-provider>
+    <acontext-consumer></acontext-consumer>
+  </acontext-provider>
 `;
 
-class ThemeConsumer extends consumer(HTMLElement) {
+class AConsumer extends consumer(HTMLElement) {
+  constructor() {
+    super();
+    
+    this.shadowRoot = this.attachShadow({ mode: 'open' });
+    shadowRoot.innerHTML = template;
+  }
   _onContextChanged(theme) {
     ...
   }
+  
+  connectedCallback() {
+    this.shadowRoot.querySelector('acontext-provider').value = 'newContext';
+  }
 };
-```
+
+customElements.define('acontext-consumer', AConsumer);
