@@ -1,4 +1,4 @@
-# wc-context (aplha)
+# wc-context (alpha)
 
 Context creation library for `webcomponents` inspired by `React's context` (new and old APIs) and by the [talk](https://www.youtube.com/watch?v=6o5zaKHedTE) by Justin Fagnani about DI using custom events.
 
