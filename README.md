@@ -9,7 +9,10 @@ In component based apps, very often there is a need to pass properties all the w
 ## See Redux exmaple in demo folder
 ```
 npm i polymer-cli -g
+
 polymer serve
+
+// navigate to http://127.0.0.1:8081/components/wc-context/demo
 ```
 
 ### Usage example
