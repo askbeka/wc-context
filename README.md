@@ -4,7 +4,7 @@ Context creation library for `webcomponents` inspired by `React's context` (new 
 
 ## Motivation
 
-In component based apps, very often there is a need to pass properties all the way down in hirarchy or decoupling components from their dependencies for testability or reusability purposes this is where this small library can help you.
+In component based apps, you may want to pass properties all the way down the hirarchy or decouple components from their dependencies for testability or reusability purposes, then this small library can help you.
 
 ## See Redux exmaple in demo folder
 ```
