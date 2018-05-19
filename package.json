@@ -2,8 +2,8 @@
   "name": "wc-context",
   "version": "1.0.0",
   "description": "Context utils for webcomponents",
-  "main": "createContext.js",
-  "module": "createContext.js",
+  "main": "create-context.js",
+  "module": "create-context.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -34,6 +34,7 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
+    "pwa-helpers": "^0.8.2",
     "redux": "^4.0.0"
   }
 }

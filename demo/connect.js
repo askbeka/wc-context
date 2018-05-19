@@ -1,17 +1,19 @@
-import createContext from '../createContext.js';
+import storeConsumer from './store-consumer.js';
 
-export default (mapStateToProps, mapDispatchToProps, store) =>
-  baseElement => class extends createContext('store', store)(baseElement) {
+export default (mapStateToProps, mapDispatchToProps) =>
+  baseElement => class extends storeConsumer(baseElement) {
     _onContextChange(newStore) {
       if (this.__storeUnsubscribe) {
         this.__storeUnsubscribe();
       }
 
-      this.__storeUnsubscribe = newStore.subscribe(() => this.stateChanged(store.getState()));
+      if (newStore) {
+        this.__storeUnsubscribe = newStore.subscribe(() => this.stateChanged(newStore.getState()));
 
-      this.stateChanged(store.getState());
+        this.stateChanged(newStore.getState());
 
-      this.updateProps(mapDispatchToProps(store.dispatch));
+        this.updateProps(mapDispatchToProps(newStore.dispatch));
+      }
     }
 
     disconnectedCallback() {

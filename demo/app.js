@@ -1,12 +1,10 @@
-import { createStore } from 'redux';
-import connect from './connect.js';
+import { createStore, combineReducers } from 'redux';
 import inputReducer from './store/input-reducer.js';
-import { changeInput } from './store/input-actions.js';
-import ControlledInput from './components/controlled-input.js';
+import './components/controlled-input-container.js';
 
-const iniitialState = '';
+const iniitialState = {};
 const store = createStore(
-  inputReducer,
+  combineReducers({ input: inputReducer }),
   iniitialState,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
@@ -22,19 +20,13 @@ export default class App extends HTMLElement {
         <controlled-input></controlled-input>
       </store-provider>
     `;
+
+    this.storeProvider = shadowRoot.querySelector('store-provider');
+  }
+
+  connectedCallback() {
+    this.storeProvider.value = store;
   }
 }
-
-const mapStateToProps = state => ({
-  value: state,
-});
-
-const mapDispatchToProps = dispatch => ({
-  onChange: value => dispatch(changeInput(value)),
-});
-
-const InputContainer = connect(mapStateToProps, mapDispatchToProps, store)(ControlledInput);
-
-customElements.define('controlled-input', InputContainer);
 
 customElements.define('my-app', App);

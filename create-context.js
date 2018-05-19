@@ -75,22 +75,25 @@ export default function createContext(contextName, defaultValue) {
     }
 
     connectedCallback() {
-      const event = new CustomEvent(eventName, {
-        // we will provide provider here
-        detail: { callback: this._onContextChange },
-        bubbles: true,
-        cancelable: true,
-        // Has to pass shadow dom boundaries
-        // for browsers not supporting shadowDom and less mental overhead in usage
-        composed: true,
-      });
-
-      this.dispatchEvent(event);
-
-      this.__unsubscribeContext = event.detail.unsubscribe;
-
+      // check if already has
       if (!this.__unsubscribeContext) {
-        throw new Error(`no provider found for ${contextName} consumer`, this);
+        const event = new CustomEvent(eventName, {
+          // we will provide provider here
+          detail: { callback: this._onContextChange },
+          bubbles: true,
+          cancelable: true,
+          // Has to pass shadow dom boundaries
+          // for browsers not supporting shadowDom and less mental overhead in usage
+          composed: true,
+        });
+
+        this.dispatchEvent(event);
+
+        this.__unsubscribeContext = event.detail.unsubscribe;
+
+        if (!this.__unsubscribeContext) {
+          throw new Error(`no provider found for ${contextName} consumer`, this);
+        }
       }
 
       if (super.connectedCallback) {
