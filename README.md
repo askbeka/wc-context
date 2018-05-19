@@ -6,6 +6,11 @@ Context creation library for `webcomponents` inspired by `React's context` (new 
 
 In component based apps, you may want to pass properties all the way down the hirarchy or decouple components from their dependencies for testability or reusability purposes, then this small library can help you.
 
+## Concept
+`provider`, is an element providing a context through value property to subscribed `consumers`.
+`consumers` when connected to DOM subscribe to context through dispatching `CustomEvent` which then gets handled by closest `provider` up in the tree.
+`providers` have to be static, connected only once, if dynamic context is needed modify `value` property. This restriction is needed for performance and to make it easier to use this api by restricting usage options.
+
 ## See Redux example in demo folder
 ```
 npm i polymer-cli -g
