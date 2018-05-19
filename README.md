@@ -6,7 +6,7 @@ Context creation library for `webcomponents` inspired by `React's context` (new 
 
 In component based apps, you may want to pass properties all the way down the hirarchy or decouple components from their dependencies for testability or reusability purposes, then this small library can help you.
 
-## See Redux exmaple in demo folder
+## See Redux example in demo folder
 ```
 npm i polymer-cli -g
 
