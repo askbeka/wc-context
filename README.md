@@ -1,12 +1,12 @@
-# wc-context (aplha)
+# wc-context (alpha)
 
 Context creation library for `webcomponents` inspired by `React's context` (new and old APIs) and by the [talk](https://www.youtube.com/watch?v=6o5zaKHedTE) by Justin Fagnani about DI using custom events.
 
 ## Motivation
 
-In component based apps, very often there is a need to pass properties all the way down in hirarchy or decoupling components from their dependencies for testability or reusability purposes this is where this small library can help you.
+In component based apps, you may want to pass properties all the way down the hirarchy or decouple components from their dependencies for testability or reusability purposes, then this small library can help you.
 
-## See Redux exmaple in demo folder
+## See Redux example in demo folder
 ```
 npm i polymer-cli -g
 
