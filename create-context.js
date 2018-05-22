@@ -1,3 +1,5 @@
+import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
+
 const includes = (arr, item) => arr.indexOf(item) !== -1;
 
 const contexts = new WeakMap();
@@ -65,8 +67,6 @@ export default function createContext(contextName, defaultValue) {
     }
   }
 
-  customElements.define(`${contextName}-provider`, Provider);
-
   const consumer = baseElement => class Consumer extends baseElement {
     constructor() {
       super();
@@ -75,25 +75,22 @@ export default function createContext(contextName, defaultValue) {
     }
 
     connectedCallback() {
-      // check if already has
+      const event = new CustomEvent(eventName, {
+        // we will provide provider here
+        detail: { callback: this._onContextChange },
+        bubbles: true,
+        cancelable: true,
+        // Has to pass shadow dom boundaries
+        // for browsers not supporting shadowDom and less mental overhead in usage
+        composed: true,
+      });
+
+      this.dispatchEvent(event);
+
+      this.__unsubscribeContext = event.detail.unsubscribe;
+
       if (!this.__unsubscribeContext) {
-        const event = new CustomEvent(eventName, {
-          // we will provide provider here
-          detail: { callback: this._onContextChange },
-          bubbles: true,
-          cancelable: true,
-          // Has to pass shadow dom boundaries
-          // for browsers not supporting shadowDom and less mental overhead in usage
-          composed: true,
-        });
-
-        this.dispatchEvent(event);
-
-        this.__unsubscribeContext = event.detail.unsubscribe;
-
-        if (!this.__unsubscribeContext) {
-          throw new Error(`no provider found for ${contextName} consumer`, this);
-        }
+        throw new Error(`no provider found for ${contextName} consumer`, this);
       }
 
       if (super.connectedCallback) {
@@ -110,11 +107,10 @@ export default function createContext(contextName, defaultValue) {
         super.disconnectedCallback();
       }
     }
-
-    _onContextChange(context) {
-      throw new Error(`${contextName} _onContextChange has not been implemented`, context, this);
-    }
   };
 
-  return consumer;
+  return {
+    Provider,
+    consumer: dedupingMixin(consumer),
+  };
 }

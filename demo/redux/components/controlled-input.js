@@ -39,10 +39,10 @@ export default class ControlledInput extends HTMLElement {
   }
 
   set onChange(handler) {
-    this._onChange = handler;
+    this.__onChange = handler;
   }
 
   get onChange() {
-    return this._onChange;
+    return this.__onChange;
   }
 }

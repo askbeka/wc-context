@@ -31,10 +31,14 @@
   },
   "homepage": "https://github.com/askbeka/wc-context#readme",
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
     "pwa-helpers": "^0.8.2",
-    "redux": "^4.0.0"
+    "redux": "^3.7.2"
+  },
+  "dependencies": {
+    "@polymer/polymer": "^3.0.2"
   }
 }

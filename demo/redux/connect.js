@@ -1,7 +1,7 @@
-import storeConsumer from './store-consumer.js';
+import { consumer } from './store-context.js';
 
 export default (mapStateToProps, mapDispatchToProps) =>
-  baseElement => class extends storeConsumer(baseElement) {
+  baseElement => class extends consumer(baseElement) {
     _onContextChange(newStore) {
       if (this.__storeUnsubscribe) {
         this.__storeUnsubscribe();
@@ -13,6 +13,10 @@ export default (mapStateToProps, mapDispatchToProps) =>
         this.stateChanged(newStore.getState());
 
         this.updateProps(mapDispatchToProps(newStore.dispatch));
+      }
+
+      if (super._onContextChange) {
+        super._onContextChange(newStore);
       }
     }
 
