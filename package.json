@@ -2,10 +2,11 @@
   "name": "wc-context",
   "version": "1.0.0",
   "description": "Context utils for webcomponents",
-  "main": "create-context.js",
-  "module": "create-context.js",
+  "module": "wc-context.js",
+  "browser": "dist/wc-context.global.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "wct --skip-selenium-install",
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -36,7 +37,9 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
     "pwa-helpers": "^0.8.2",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "rollup": "^0.59.4",
+    "wct": "^2.2.18"
   },
   "dependencies": {
     "@polymer/polymer": "^3.0.2"
