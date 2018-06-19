@@ -1,5 +1,4 @@
-import createContext from '../../create-context.js';
+import { createConsumerMixin, createProvider } from '../../wc-context.js';
 
-const { consumer, Provider } = createContext('store');
-
-export { consumer, Provider };
+export const consumerMixin = createConsumerMixin('store');
+export const Provider = createProvider('store');

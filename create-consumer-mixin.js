@@ -1,10 +1,9 @@
-import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
-import { getEventName } from './utils.js';
+import { getEventName, dedupingMixin } from './utils.js';
 
 export default (contextName) => {
   const eventName = getEventName(contextName);
 
-  const consumer = baseElement => class Consumer extends baseElement {
+  const consumerMixin = baseElement => class Consumer extends baseElement {
     constructor() {
       super();
 
@@ -13,20 +12,19 @@ export default (contextName) => {
 
     connectedCallback() {
       const event = new CustomEvent(eventName, {
-        // we will provide provider here
+        // we will get unscubribe function here
         detail: { callback: this._onContextChange },
         bubbles: true,
         cancelable: true,
         // Has to pass shadow dom boundaries
-        // for browsers not supporting shadowDom and less mental overhead in usage
         composed: true,
       });
 
       this.dispatchEvent(event);
 
-      this.__unsubscribeContext = event.detail.unsubscribe;
+      this.__unsubscribeFromContext = event.detail.unsubscribe;
 
-      if (!this.__unsubscribeContext) {
+      if (!this.__unsubscribeFromContext) {
         throw new Error(`no provider found for ${contextName} consumer`, this);
       }
 
@@ -36,8 +34,8 @@ export default (contextName) => {
     }
 
     disconnectedCallback() {
-      if (this.__unsubscribeContext) {
-        this.__unsubscribeContext();
+      if (this.__unsubscribeFromContext) {
+        this.__unsubscribeFromContext();
       }
 
       if (super.disconnectedCallback) {
@@ -46,5 +44,5 @@ export default (contextName) => {
     }
   };
 
-  return dedupingMixin(consumer);
+  return dedupingMixin(consumerMixin);
 };

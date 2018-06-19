@@ -1,7 +1,7 @@
-import { consumer } from './store-context.js';
+import { consumerMixin } from './store-context.js';
 
 export default (mapStateToProps, mapDispatchToProps) =>
-  baseElement => class extends consumer(baseElement) {
+  baseElement => class extends consumerMixin(baseElement) {
     _onContextChange(newStore) {
       if (this.__storeUnsubscribe) {
         this.__storeUnsubscribe();

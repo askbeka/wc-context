@@ -1,4 +1,4 @@
-export default class ControlledInput extends HTMLElement {
+class ControlledInput extends HTMLElement {
   constructor() {
     super();
     const shadowRoot = this.attachShadow({ mode: 'open' });
@@ -46,3 +46,5 @@ export default class ControlledInput extends HTMLElement {
     return this.__onChange;
   }
 }
+
+customElements.define('controlled-input', ControlledInput);

@@ -1,8 +1,9 @@
-import connect from '../connect.js';
+import connect from '../vanilla-connect.js';
 import redcuerInjector from '../reducer-injector.js';
 import inputReducer from '../store/input-reducer.js';
 import { changeInput } from '../store/input-actions.js';
-import ControlledInput from './controlled-input.js';
+
+import './controlled-vanilla-input.js';
 
 const mapStateToProps = state => ({
   value: state.input,
@@ -13,9 +14,11 @@ const mapDispatchToProps = dispatch => ({
 });
 
 customElements.define(
-  'controlled-input',
-  redcuerInjector({ input: inputReducer })(connect(
+  'controlled-input-container',
+  redcuerInjector({
+    input: inputReducer,
+  })(connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(ControlledInput)),
+  )(customElements.get('controlled-input'))),
 );
